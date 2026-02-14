@@ -11,43 +11,47 @@ const Hero = () => {
     const isMobile = useMediaQuery({ maxWidth: 767 })
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
-        const heroSplit = new SplitText("#hero .title", { type: "chars, words" })
 
-        const paragraphSplit = new SplitText("#hero .subtitle", { type: "lines" })
+        document.fonts.ready.then(() => {
+            const heroSplit = new SplitText("#hero .title", { type: "chars, words" })
 
-        heroSplit.chars.forEach((char) => char.classList.add("text-gradient"))
+            const paragraphSplit = new SplitText("#hero .subtitle", { type: "lines" })
 
-        gsap.from(heroSplit.chars, { yPercent: 100, stagger: 0.06, ease: "expo.out", duration: 1.8 })
+            heroSplit.chars.forEach((char) => char.classList.add("text-gradient"))
 
-        gsap.from(paragraphSplit.lines, { yPercent: 100, opacity: 0, stagger: 0.06, ease: "expo.out", duration: 1.8, delay: 1 })
+            gsap.from(heroSplit.chars, { yPercent: 100, stagger: 0.06, ease: "expo.out", duration: 1.8 })
 
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: "#hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-            }
+            gsap.from(paragraphSplit.lines, { yPercent: 100, opacity: 0, stagger: 0.06, ease: "expo.out", duration: 1.8, delay: 1 })
+
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            })
+                .to(".right-leaf", { y: 200 }, 0)
+                .to(".left-leaf", { y: -200 }, 0)
         })
-            .to(".right-leaf", { y: 200 }, 0)
-            .to(".left-leaf", { y: -200 }, 0)
 
         const startValue = isMobile ? "top 50%" : "center 60%";
         const endValue = isMobile ? "120% top" : "bottom top";
 
-       const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: "video",
-            start: startValue,
-            end: endValue,
-            scrub: true,
-            pin: true,
-        }
-       })
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "video",
+                start: startValue,
+                end: endValue,
+                scrub: true,
+                pin: true,
+            }
+        })
 
-       videoRef.current.onloadedmetadata = () => {
-        tl.to(videoRef.current, { currentTime: videoRef.current.duration } )
-       }
+        videoRef.current.onloadedmetadata = () => {
+            tl.to(videoRef.current, { currentTime: videoRef.current.duration })
+        }
+
     }, [])
     return (
         <>
