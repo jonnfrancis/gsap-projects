@@ -60,8 +60,8 @@ const Performance = () => {
         <h2>Next-level graphics performance. Game on.</h2>
 
         <div className="wrapper">
-            {performanceImages.map(({ id, src }) => (
-                <img key={id} src={src} alt={id} className={id} />
+            {performanceImages.map(({ item, index }) => (
+                <img key={index} src={item.src} alt={item.alt || `Performance Image ${index}`} className={item.id} />
             ))}
         </div>
 
