@@ -14,9 +14,9 @@ const Footer = () => {
         <p>Copyright © 2026 Apple Inc. All rights reserved.</p>
 
         <ul>
-          {footerLinks.map((link) => (
-            <li key={link.id}>
-              <a href={link.link}>{link.label}</a>
+          {footerLinks.map(({ label, link }) => (
+            <li key={label}>
+              <a href={link}>{label}</a>
             </li>
           ))}
         </ul>
