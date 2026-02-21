@@ -14,25 +14,23 @@ const Hero = () => {
 
         document.fonts.ready.then(() => {
             const heroSplit = new SplitText("#hero .title", { type: "chars, words" })
-
             const paragraphSplit = new SplitText("#hero .subtitle", { type: "lines" })
 
             heroSplit.chars.forEach((char) => char.classList.add("text-gradient"))
 
-            gsap.from(heroSplit.chars, { yPercent: 100, stagger: 0.06, ease: "expo.out", duration: 1.8 })
-
-            gsap.from(paragraphSplit.lines, { yPercent: 100, opacity: 0, stagger: 0.06, ease: "expo.out", duration: 1.8, delay: 1 })
+            gsap.from(heroSplit.chars, { yPercent: 100, stagger: 0.03, ease: "expo.out", duration: 1.5 })
+            gsap.from(paragraphSplit.lines, { yPercent: 50, opacity: 0, stagger: 0.1, ease: "power3.out", duration: 1.2, delay: 0.6 })
 
             gsap.timeline({
                 scrollTrigger: {
                     trigger: "#hero",
                     start: "top top",
                     end: "bottom top",
-                    scrub: true,
+                    scrub: 1,
                 }
             })
-                .to(".right-leaf", { y: 200 }, 0)
-                .to(".left-leaf", { y: -200 }, 0)
+                .to(".right-leaf", { y: 150, rotate: 15, }, 0)
+                .to(".left-leaf", { y: -150, rotate: -15, }, 0)
         })
 
         const startValue = isMobile ? "top 50%" : "center 60%";
@@ -45,6 +43,7 @@ const Hero = () => {
                 end: endValue,
                 scrub: true,
                 pin: true,
+                anticipatePin: 1
             }
         })
 

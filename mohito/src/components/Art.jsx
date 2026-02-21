@@ -2,30 +2,34 @@ import { useMediaQuery } from "react-responsive"
 import { featureLists, goodLists } from "../constants"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
+import { useRef } from "react"
 
 const Art = () => {
     const isMobile = useMediaQuery({ maxWidth: 767 })
 
+    const artRef = useRef(null)
+
     useGSAP(() => {
         const start = isMobile ? 'top 20%' : "top top";
-
+        if (!artRef.current) return;
         const maskTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: "#art",
+                trigger: artRef.current,
                 start,
-                end: "bottom center",
-                scrub: 1.5,
-                pin: true
+                end: "+=150%",
+                scrub: 2,
+                pin: true,
+                anticipatePin: 1
             }
         })
 
         maskTimeline
-        .to('.will-fade', { opacity: 0, ease: "power1.inOut", stagger: 0.2 })
-        .to('.masked-img', { scale: 1.3, maskPosition: 'center', maskSize: "400%", duration: 1, ease: "power1.inOut" } )
-        .to('#masked-content', { opacity: 1, ease: "power1.inOut", duration: 1 })
-    })
+        .to('.will-fade', { opacity: 0, y: 20, ease: "sine.inOut", stagger: 0.1 })
+        .to('.masked-img', { scale: 1.1, maskPosition: 'center', maskSize: "800%", webkitMaskSize: "800%", duration: 2, ease: "power2.inOut" }, "-=0.2")
+        .to('#masked-content', { opacity: 1, y: 0, ease: "back.out(1.2)", duration: 1 }, "-=1")
+    } ) 
   return (
-    <div id="art">
+    <div id="art" ref={artRef}>
         <div className="container mx-auto h-full pt-20">
             <h2 className="will-fade">The ART</h2>
 

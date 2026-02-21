@@ -13,6 +13,17 @@ const Menu = () => {
 
         gsap.fromTo(".details h2", { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 100, ease: "power1.inOut"})
         gsap.fromTo(".details p", { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 100, ease: "power1.inOut"})
+
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: "#menu",
+                start: "top center",
+                end: "bottom top",
+                scrub: 1,
+            }
+        })
+        .to("#m-left-leaf", { y: -100, rotate: -10 }, 0)
+        .to("#m-right-leaf", { y: 100, rotate: 10 }, 0)
     }, [currentIndex])
 
     const goToSlideIndex = (index) => {
